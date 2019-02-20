@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="true" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+<title>Login | Books Heaven</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+<!-- -->
+	
+</script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+<!-- -->
+	
+</script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/res/frontend/front.css" />
+<link href='https://fonts.googleapis.com/css?family=Montserrat'
+	rel='stylesheet' type='text/css' />
+
+
+
+<SCRIPT type="text/javascript">
+//<![CDATA[
+	
+	function validate(form) {
+		
+		var ok = true;
+		// Resetting the errors
+		document.getElementById("firstName_error").innerHTML = "";
+		document.getElementById("lastName_error").innerHTML = "";
+		document.getElementById("email_error").innerHTML = "";
+		document.getElementById("password_error").innerHTML = "";
+		document.getElementById("passwordAgain_error").innerHTML = "";
+		document.getElementById("street_error").innerHTML = "";
+		document.getElementById("city_error").innerHTML = "";
+		document.getElementById("province_error").innerHTML = "";
+		document.getElementById("country_error").innerHTML = "";
+		document.getElementById("zip_error").innerHTML = "";
+		document.getElementById("phone_error").innerHTML = "";
+
+		// check for first name
+		var p = document.getElementById("firstName").value;
+		if (!p.match(/^[a-zA-Z]+$/)) {
+			document.getElementById("firstName_error").innerHTML = "Please enter Characters only";
+			form.firstName.style.borderColor = "red";
+			document.getElementById("password").value = "";
+			document.getElementById("passwordAgain").value = "";
+			form.firstName.focus();
+			ok = false;
+
+		}
+		else {
+			form.firstName.style.borderColor = "";
+		}
+
+		// check for last name 
+		var p = document.getElementById("lastName").value;
+		if (!p.match(/^[a-zA-Z]+$/)) {
+			document.getElementById("lastName_error").innerHTML = "Please enter Characters only";
+			form.lastName.style.borderColor = "red";
+			document.getElementById("password").value = "";
+			document.getElementById("passwordAgain").value = "";
+			form.lastName.focus();
+			ok = false;
+
+		}
+		
+		else {
+			form.lastName.style.borderColor = "";
+		}
+
+		// check for email 
+		var p = document.getElementById("email").value;
+		var emailRegx = /\S+@\S+\.\S+/;
+
+		if (!p.match(emailRegx)) {
+
+			document.getElementById("email_error").innerHTML = "Please enter correct email";
+			form.email.style.borderColor = "red";
+			document.getElementById("password").value = "";
+			document.getElementById("passwordAgain").value = "";
+			form.email.focus();
+			ok = false;
+
+		}
+		else {
+			form.email.style.borderColor = "";
+		}
+		
+		// check for password
+		var p = form.password.value;
+		var z = form.passwordAgain.value;
+
+		if (p.length < 5 || p.length > 10){   
+
+		document.getElementById("passwordAgain_error").innerHTML = "Passoword must be between 5-10 characters";
+		document.getElementById("password").value = "";
+		document.getElementById("passwordAgain").value = "";
+		form.password.style.borderColor = "red";
+		form.passwordAgain.style.borderColor = "red";
+		ok = false;
+		}
+		
+		else {
+			
+			if (z != p)
+			{
+			document.getElementById("passwordAgain_error").innerHTML = "Passowords don't match";
+			document.getElementById("password").value = "";
+			document.getElementById("passwordAgain").value = "";
+			form.password.style.borderColor = "red";
+			form.passwordAgain.style.borderColor = "red";
+			ok = false;
+			}
+			else
+				{
+				form.password.style.borderColor = "";
+			    form.passwordAgain.style.borderColor = "";
+				}
+		}
+		
+		// checks the city
+		
+		var city = form.city.value;
+		
+		if(city.match(/\d/))
+		{
+			document.getElementById("city_error").innerHTML = "Please enter characters only";
+			form.city.style.borderColor = "red";
+			ok = false;
+			
+		}
+		else {
+			form.city.style.borderColor = "";
+		}
+		
+       // checks the province
+		
+		var province = form.province.value;
+		
+		if(province.match(/\d/))
+		{
+			document.getElementById("province_error").innerHTML = "Please enter characters only";
+			form.province.style.borderColor = "red";
+			ok = false;
+			
+		}
+		else {
+			form.province.style.borderColor = "";
+		}
+		
+	// checks the country
+		
+		var country = form.country.value;
+		
+		if(country.match(/\d/))
+		{
+			document.getElementById("country_error").innerHTML = "Please enter characters only";
+			form.country.style.borderColor = "red";
+			ok = false;
+			
+		}
+		else {
+			form.country.style.borderColor = "";
+		}
+		
+		// checks the zip code
+		var zip = form.zip.value;
+		
+		if (zip.match(/\s/))
+		{   
+			document.getElementById("zip_error").innerHTML = "No space (i.e L1B4K2 without a space)";
+			document.getElementById("password").value = "";
+			document.getElementById("passwordAgain").value = "";
+			form.password.style.borderColor = "red";
+			form.password.style.borderColor = "red";
+			form.passwordAgain.style.borderColor = "red";
+			ok = false;
+			
+			
+		}
+		
+		else
+		{
+			
+			if(!zip.match(/^[ABCEGHJKLMNPRSTVXYZ]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$/))
+			{
+				document.getElementById("zip_error").innerHTML = "Wrong zip format (i.e L1B3K4)";
+				document.getElementById("password").value = "";
+				document.getElementById("passwordAgain").value = "";
+				form.zip.style.borderColor = "red";
+				form.password.style.borderColor = "red";
+				form.passwordAgain.style.borderColor = "red";
+				ok = false;
+			}
+			
+			else 
+				{
+				 form.zip.style.borderColor = "";
+				
+				}
+			
+		}
+		
+		// check the phone
+		var phone = document.getElementById("phone").value;
+
+		// match 10 digit phone number
+		if (!phone.match(/\d{10}/)) {
+			document.getElementById("phone_error").innerHTML = "Wrong phone format (i.e 6667778888)";
+			document.getElementById("password").value = "";
+			document.getElementById("passwordAgain").value = "";
+			form.phone.style.borderColor = "red";
+			form.password.style.borderColor = "red";
+			form.passwordAgain.style.borderColor = "red";
+			ok = false;
+		}
+
+		else {
+			
+			form.phone.style.borderColor = "";
+		}
+		
+		return ok;
+	}
+	 
+	 function loginValidate(form)
+	 {
+		
+		 var ok = true;
+		// Resetting the errors
+		document.getElementById("signInEmail_error").innerHTML = "";
+		document.getElementById("signInPassword_error").innerHTML = "";
+		 
+		 var email = form.signInEmail.value ;
+		 var password = form.signInPassword.value;
+		 var emailRegx = /\S+@\S+\.\S+/;
+		 if(!email.match(emailRegx) )
+		 {
+			 
+			 
+			 document.getElementById("signInPassword_error").innerHTML = "Email is incorrect";
+			 document.getElementById("password").value = "";
+				
+				form.email.style.borderColor = "red";
+				form.password.style.borderColor = "red";
+				
+				ok = false;
+			 
+		 }
+		 		 
+		 
+		 
+	 }
+	 
+	 
+	 
+	 
+	//]]>	 
+</SCRIPT>
+
+</head>
+<body>
+	
+	<!--  Nav bar starts here -->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			<!-- mobile collapse menu -->
+			<button type="button" data-target="#navbarCollapse"
+				data-toggle="collapse" class="navbar-toggle">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar">
+					<!--  -->
+				</span> <span class="icon-bar">
+					<!--  -->
+				</span> <span class="icon-bar">
+					<!--  -->
+				</span>
+			</button>
+				<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/Start"><img
+					class="img-responsive"
+					src="${pageContext.request.contextPath}/res/imgs/logo.png" alt=""
+					width="120px" /></a>
+
+			
+			<ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+				<!--  whenever we click on the view cart we go to the cart page -->
+				<li style="float:right;"><a style="display: inline;"
+					href="${pageContext.request.contextPath}/Start/CartCheck.jspx?forward=view_cart"><span
+						class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
+							<!--  -->
+					</span> <span class="badge">${cartSize}</span> </a></li>
+				<c:if test="${not empty loggedInAs}">
+				<li ><a style="display: inline;"
+						href="${pageContext.request.contextPath}/Start/Home.jspx?forward=sign_out">(Sign
+							Out)</a></li>
+					<li>Hello, ${loggedInAs}</li>
+					
+				</c:if>
+				<c:if test="${empty loggedInAs }">
+					<li><a style="display: inline;"
+						href="${pageContext.request.contextPath}/Start/Login.jspx?forward=sign_in">Sign
+							in</a></li>
+				</c:if>
+
+				
+			
+			
+			<div class="collapse navbar-collapse vertical-align"
+				id="navbarCollapse">
+				
+				<ul class="nav navbar-nav">
+
+
+					<!-- category navigation -->
+					<li>
+						<!-- Single button -->
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">
+								Genre <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a id="" title="Art and Architecture"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Art">Art
+										And Architecture</a></li>
+
+								<li><a id="" title="History"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=History">History</a></li>
+
+								<li><a id="" title="Computers"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Computers">Computers</a></li>
+
+								<li><a id="" title="Science and Nature"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Science">Science
+										and Nature</a></li>
+
+								<li><a id="" title="Romance"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Romance">Romance</a></li>
+
+								<li><a id="" title="Sports and Fitness"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Sports">Sports
+										and fitness</a></li>
+
+								<li><a id="" title="Food and Drink"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Food">Food
+										and Drink</a></li>
+
+								<li><a id="" title="Business and Finance"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Finance">Business
+										and Finance</a></li>
+							</ul>
+						</div>
+
+
+					</li>
+					
+
+				</ul><!-- /end of category navigation -->
+				<!--  this is the search form and the button with it the placeholder attribute is for prompting user -->
+				<form class="navbar-form navbar-left" role="search" action="">
+					<div class="input-group">
+						<input name="searchstring" size="45" type="text"
+							class="form-control" placeholder="Search..." /> <span
+							class="input-group-btn" id="sizing-addon1"><button
+								name="searchbutton" type="submit" class="btn btn-default btn-md">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button></span>
+					</div>
+
+				</form>
+			</div><!-- end of collapsable menu -->
+			</ul>
+			</div><!--  Nav bar ends here -->
+		</div><!-- end of nav container -->
+	</nav>
+	
+	<!--  Nav bar ends here -->
+	<!--  Sign in starts here -->
+	<div class="container">
+
+		<div class="col-md-12 col-sm-12">
+			<c:if test="${empty rButton}">
+				<div class="page-header">
+					<h1>Login to Books Heaven</h1>
+				</div>
+				<div class="col-md-4 col-md-offset-4">
+
+					<form action="" method="GET" class="form-signin" role="form" id="login-form" onsubmit="return loginValidate(this)">
+						<h2 class="form-signin-heading">Please sign in</h2>
+						<input type="text" id="signInEmail" name="signInEmail" class="form-control"
+							placeholder="Email" required="required"/> 
+							<SPAN id="signInEmail_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+						<br /> 
+							<label for="password" class="sr-only">Password</label> 
+							<input type="password" id="signInPassword" class="form-control" name="signInPassword"
+							placeholder="Password" required="required"/>
+							<SPAN id="signInPassword_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+						<div class="checkbox">
+						<c:if test="${not empty loginMessage}">
+						<p style="color: red; font-size: 11px;">Email or password is incorrect!</p>
+						</c:if>
+							<label><input type="checkbox" value="remember-me" />
+								Remember me
+							</label>
+						</div>
+						
+						<button class="btn btn-lg btn-success btn-block"
+						type="submit" name="signInButton" value="signInButton">Sign in</button>
+						<hr color="black" />
+						<p>Not a member yet ? Register now</p>
+						</form>
+						
+						<form>
+						<button 
+						class="btn btn-lg btn-success btn-block"
+						style="background-color: lightgrey;" type="submit" name="Register"
+						value="Register">Register</button>
+						
+						
+					</form>
+				</div>
+			</c:if>
+		</div>
+
+		<!-- The Register start here -->
+		<c:if test="${not empty rButton}">
+			<div class="page-header">
+				<h1>Create Books Heaven Account</h1>
+			</div>
+			<div class="col-md-4 col-md-offset-4">
+				<form method="GET" class="form-signin" role="form"
+					id="createAcnt-form" action="" onsubmit="return validate(this);">
+					<h2 class="form-signin-heading">Create account</h2>
+					
+					<p style="color: red;">**All fields are required**</p>
+					
+					<input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required="required"/>
+					 <SPAN id="firstName_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br />			
+					<input type="text" id="lastName" name="lastName"  class="form-control" placeholder="Last Name" required="required"/> 
+					<SPAN id="lastName_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br />					
+					<input type="text" id="email" name="email" class="form-control" placeholder="Email" required="required"/> 
+					<SPAN id="email_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br /> 	
+					<input type="password" id="password" class="form-control" name="password" placeholder="Password"  required="required"/>
+					<SPAN id="password_error" style="color: red; font-size: 11px;"><!--  --></SPAN> 
+					<br /> 				
+					<input type="password" id="passwordAgain"  class="form-control" name="passwordAgain" placeholder="Type Password Again" required="required"/>
+					<SPAN id="passwordAgain_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br />					
+					<input type="text" value= "" name="street" id="street" placeholder="Street" class="form-control" required="required"></input>
+					<SPAN id="street_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br/>
+					<input type="text" value= "" name="city" id="city"  placeholder="City" class="form-control" required="required"></input>
+					<SPAN id="city_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br/>
+					<input type="text" value= "" name="province" id="province"  placeholder="Province" class="form-control" required="required" ></input>
+					<SPAN id="province_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br/>
+					<input type="text" value= "" name="country" id="country" placeholder="Country" onblur="return check(this.id);" class="form-control" required="required"></input>
+					<SPAN id="country_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br/>
+					<input type="text" value="" maxlength="6" name="zip" id="zip" placeholder="Zip (i.e L2B1k7)" class="form-control" required="required" ></input>											
+					<SPAN id="zip_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br/>	
+					<input type="text" value= "" maxlength="10" name="phone" id="phone"  placeholder="Phone (i.e 6667778888)" class="form-control" required="required"></input>											
+					<SPAN id="phone_error" style="color: red; font-size: 11px;"><!--  --></SPAN>
+					<br/>	
+					<BR />
+						
+						
+				<button	class="btn btn-lg btn-success btn-block" type="submit"
+					name="createAcnt" value="createAcnt" id="create_account_btn">Create Account</button>
+				</form>
+
+				
+
+				<hr />
+				<p>
+					Already have an account? <a href="${pageContext.request.contextPath}/Start/Login.jspx?forward=sign_in">Sign in</a>
+				</p>
+			</div>
+		</c:if>
+	</div>
+	<!-- The Register ends here -->
+
+	<!-- /container -->
+<!-- Start of footer -->
+	<footer>
+		<div class="container-fluid">
+			<div class="footer-style">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 1 -->
+					<h5>Our Company</h5>
+					<ul>
+						<li><a id="" title="about us"
+							href="${pageContext.request.contextPath}/Start/aboutus.jspx#about">About
+								Us</a></li>
+						<li><a id="" title="contact us"
+							href="${pageContext.request.contextPath}/Start/aboutus.jspx#contact">Contact
+								Us</a></li>
+					</ul>
+				</div>
+				<!-- end of footer box 1 -->
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 2 -->
+					<h5>Headquarters</h5>
+					<ul>
+						<li>Book Heaven</li>
+						<li>4700 Keele Street</li>
+						<li>Toronto, Ontario, CA M3J 1P3</li>
+					</ul>
+				</div>
+				<!-- end of footer box 2 -->
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 3 -->
+					<h5>Connect with Us</h5>
+					<img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-31-facebook.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-32-twitter.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-3-google-plus.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-14-e-mail-envelope.png"
+						alt="" />
+				</div>
+				<!-- end of footer box 3 -->
+				<br />
+				<div class="col-sm-12 col-md-12">© 2016 Book Heaven. All
+					rights reserved.</div>
+			</div>
+		</div>
+		<!-- end of fluid container -->
+	</footer>
+	
+
+
+
+</body>
+	</html>
+</jsp:root>

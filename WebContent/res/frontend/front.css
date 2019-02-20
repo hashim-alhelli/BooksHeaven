@@ -1,0 +1,259 @@
+@CHARSET "ISO-8859-1";
+
+html 
+{
+	margin: 0;
+	padding: 0;
+	color: #000;
+	background: #a7a09a;
+}
+
+#wrap 
+{
+	width: 1024px;
+	margin: 0 auto;
+	background: #99c;
+}
+
+#header
+{
+	padding: 5px 10px;
+	background: #443266;
+}
+
+h1 
+{
+	margin: 0;
+}
+
+.ribbon
+{
+   	background: url('../imgs/ribbon.png') no-repeat scroll left top transparent;
+    background-color: transparent;
+    background-image: url('../imgs/ribbon.png');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center top;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: 1024px;
+    background-width: 100px;
+   	width: 1024px;
+   	height: 42px;
+   	margin: 22px 0px 22px -16px;
+    margin-top: 22px;
+    margin-right-value: 0px;
+    margin-bottom: 22px;
+    margin-left-value: 0px;
+    margin-left-ltr-source: physical;
+    margin-left-rtl-source: physical;
+    margin-right-ltr-source: physical;
+	margin-right-rtl-source: physical;
+}
+
+
+#nav 
+{
+	padding: 5px 10px;
+	background: #c99;
+}
+
+#nav ul 
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#nav li 
+{
+	display: inline;
+	margin: 0;
+	padding: 10px;
+}
+
+#main 
+{
+	float: left;
+	width: 784px;
+	padding: 10px;
+	background: #9c9;
+}
+
+h2 
+{
+	margin: 0 0 1em;
+}
+
+#sidebar 
+{
+	float: left;
+	width: 200px;
+	padding: 10px;
+	background: #99c;
+}
+
+#footer 
+{
+	clear: both;
+	padding: 5px 10px;
+	background: #cc9;
+}
+
+#footer p 
+{
+	margin: 0;
+}
+
+* html #footer 
+{
+	height: 1px;
+}
+#user-billingAddress, #user-address{
+	list-style:none !important;
+	padding:0 !important;
+}
+  
+ /* Nav bar modifications */
+ 
+ .navbar-default {
+    background-color: #FFFFFF;
+    border-color: #ECECEC;
+        border-top: 3px solid #F8990A;
+}
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 100%;
+      margin: auto;
+  }
+  .navbar-brand{
+  	float: left;
+   height:100%;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .navbar-header{
+  width:100%;
+  }
+  .vertical-align{
+  margin-top:18px;
+  }
+  
+.btn-group-vertical>.btn, .btn-group>.btn {
+    position: relative;
+    float: left;
+    height: 50px;
+}
+.btn-default.dropdown-toggle{
+	border:none;
+	border-radius:0;
+	border-bottom:solid 2px #F8990A;
+}
+button.btn.btn-secondary{
+	margin-left:0px;
+}
+  .carousel {
+    position: relative;
+    margin-top: 50px;
+}
+  
+  .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1170px;
+}
+.container{margin-top:70px; min-height:700px;}
+
+.glyphicon{
+	font-size:20px;
+}
+.book-responsive{
+	width:80%;
+}
+
+.panel-footer {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    color: black;
+    text-align: center;
+}
+
+#categories .panel:hover{
+	border:solid 1px #F8990A;
+	
+		
+}
+#categories .panel:hover > .panel-footer{
+	background:#F8990A;
+	color:#fff;
+
+}
+#categories a:hover {
+	text-decoration:none;
+}
+footer{font-size:12px; background:#E9E9EB; padding-top:10px;}
+footer ul{list-style:none; padding:0px;}
+.footer-style{margin:auto;width:700px;}
+  /*end of navbar mods*/
+@media (max-width:1000px){
+.affix{
+	position:relative !important;
+}
+.footer-style{
+	width:auto;
+}
+
+.nav>li{
+	display:inline-block;
+}
+.navbar-nav> li {
+    float: left;
+}
+.navbar-nav> .navbar-nav li.cart {
+    float: right;
+}
+.vertical-align {
+    margin-top: 48px;
+}
+.navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+    max-height:none;
+}
+.btn-default.dropdown-toggle{
+	border:none;
+	border-radius:0;
+	float:left;
+	
+}
+.btn-group-vertical>.btn, .btn-group>.btn {
+    position: relative;
+    height: 100%;
+    float:left;
+}
+.navbar-toggle {
+    position: relative;
+    float: right;
+    padding: 9px 10px;
+    margin-top: 18px;
+    margin-right: 0px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.book-responsive{
+	width:40%;
+}
+}
+
+@media (min-width: 768px){
+.navbar-nav>li {
+    float: right;
+}
+}

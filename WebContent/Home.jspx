@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="true" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Books Heaven</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+<!-- -->
+	
+</script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+<!-- -->
+	
+</script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/res/frontend/front.css" />
+
+
+</head>
+<body>
+	<!--  Nav bar starts here -->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			<!-- mobile collapse menu -->
+			<button type="button" data-target="#navbarCollapse"
+				data-toggle="collapse" class="navbar-toggle">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar">
+					<!--  -->
+				</span> <span class="icon-bar">
+					<!--  -->
+				</span> <span class="icon-bar">
+					<!--  -->
+				</span>
+			</button>
+				<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/Start"><img
+					class="img-responsive"
+					src="${pageContext.request.contextPath}/res/imgs/logo.png" alt=""
+					width="120px" /></a>
+
+			
+			<ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+				<!--  whenever we click on the view cart we go to the cart page -->
+				<li style="float:right;"><a style="display: inline;"
+					href="${pageContext.request.contextPath}/Start/CartCheck.jspx?forward=view_cart"><span
+						class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
+							<!--  -->
+					</span> <span class="badge">${cartSize}</span> </a></li>
+				<c:if test="${not empty loggedInAs}">
+				<li ><a style="display: inline;"
+						href="${pageContext.request.contextPath}/Start/Home.jspx?forward=sign_out">(Sign
+							Out)</a></li>
+					<li>Hello, ${loggedInAs}</li>
+					
+				</c:if>
+				<c:if test="${empty loggedInAs }">
+					<li><a style="display: inline;"
+						href="${pageContext.request.contextPath}/Start/Login.jspx?forward=sign_in">Sign
+							in</a></li>
+				</c:if>
+
+				
+			
+			
+			<div class="collapse navbar-collapse vertical-align"
+				id="navbarCollapse">
+				
+				<ul class="nav navbar-nav">
+
+
+					<!-- category navigation -->
+					<li>
+						<!-- Single button -->
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">
+								Genre <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a id="" title="Art and Architecture"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Art">Art
+										And Architecture</a></li>
+
+								<li><a id="" title="History"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=History">History</a></li>
+
+								<li><a id="" title="Computers"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Computers">Computers</a></li>
+
+								<li><a id="" title="Science and Nature"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Science">Science
+										and Nature</a></li>
+
+								<li><a id="" title="Romance"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Romance">Romance</a></li>
+
+								<li><a id="" title="Sports and Fitness"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Sports">Sports
+										and fitness</a></li>
+
+								<li><a id="" title="Food and Drink"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Food">Food
+										and Drink</a></li>
+
+								<li><a id="" title="Business and Finance"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Finance">Business
+										and Finance</a></li>
+							</ul>
+						</div>
+
+
+					</li>
+					
+
+				</ul><!-- /end of category navigation -->
+				<!--  this is the search form and the button with it the placeholder attribute is for prompting user -->
+				<form class="navbar-form navbar-left" role="search" action="">
+					<div class="input-group">
+						<input name="searchstring" size="45" type="text"
+							class="form-control" placeholder="Search..." /> <span
+							class="input-group-btn" id="sizing-addon1"><button
+								name="searchbutton" type="submit" class="btn btn-default btn-md">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button></span>				
+					</div>
+				</form>
+				
+				<c:if test="${loggedInRole eq 'admin'}">
+				
+				<div class="input-group">
+				<form action="" method="GET">
+							<button type="submit" name="runReports" class="btn btn-block btn-success">
+							Run Reports</button>
+				</form>
+				</div>
+				</c:if>
+				
+			</div><!-- end of collapsable menu -->
+			</ul>
+			</div><!--  Nav bar ends here -->
+		</div><!-- end of nav container -->
+	</nav>
+	
+
+	<div class="container">
+
+
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+				<li data-target="#myCarousel" data-slide-to="3"></li>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<img class='photo'
+						src="${pageContext.request.contextPath}/res/img/1.jpg" alt="" />
+				</div>
+
+				<div class="item">
+					<img class='photo'
+						src="${pageContext.request.contextPath}/res/img/2.jpg" alt="" />
+				</div>
+
+				<div class="item">
+					<img class='photo'
+						src="${pageContext.request.contextPath}/res/img/3.jpg" alt="" />
+				</div>
+
+				<div class="item">
+					<img class='photo'
+						src="${pageContext.request.contextPath}/res/img/4.jpg" alt="" />
+				</div>
+			</div>
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#myCarousel" role="button"
+				data-slide="prev"> <span
+				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel" role="button"
+				data-slide="next"> <span
+				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+
+
+
+
+		<div id="categories" class="col-md-12 col-sm-12">
+			<hr />
+			<!-- Page Features -->
+
+
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="Art and Architecture"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=Art">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b001.jpg" alt="" />
+						</div>
+						<div class="panel-footer">Art And Architecture</div>
+					</div>
+				</a>
+			</div>
+
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="History"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=History">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b007.jpg" alt="" />
+						</div>
+						<div class="panel-footer">History</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="Computers"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=Computers">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b011.jpg" alt="" />
+						</div>
+						<div class="panel-footer">Computers</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="Science and Nature"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=Science">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b017.jpg" alt="" />
+						</div>
+						<div class="panel-footer">Science and Nature</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="Romance"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=Romance">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b021.jpg" alt="" />
+						</div>
+						<div class="panel-footer">Romance</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="Sports and Fitness"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=Sports">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b028.jpg" alt="" />
+						</div>
+						<div class="panel-footer">Sports and Fitness</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="Food and Drink"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=Food">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b039.jpg" alt="" />
+						</div>
+						<div class="panel-footer">Food and Drink</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-lg-3 col-sm-12 col-md-3">
+				<a id="" title="Business and Finance"
+					href="${pageContext.request.contextPath}/Start/Item.jspx?category=Finance">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<img class="book center-block"
+								src="${pageContext.request.contextPath}/res/img/b033.jpg" alt="" />
+						</div>
+						<div class="panel-footer">Business and Finance</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- End of container -->
+	<!-- Start of footer -->
+	<footer>
+		<div class="container-fluid">
+			<div class="footer-style">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 1 -->
+					<h5>Our Company</h5>
+					<ul>
+						<li><a id="" title="about us"
+							href="${pageContext.request.contextPath}/Start/aboutus.jspx#about">About
+								Us</a></li>
+						<li><a id="" title="contact us"
+							href="${pageContext.request.contextPath}/Start/aboutus.jspx#contact">Contact
+								Us</a></li>
+					</ul>
+				</div>
+				<!-- end of footer box 1 -->
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 2 -->
+					<h5>Headquarters</h5>
+					<ul>
+						<li>Book Heaven</li>
+						<li>4700 Keele Street</li>
+						<li>Toronto, Ontario, CA M3J 1P3</li>
+					</ul>
+				</div>
+				<!-- end of footer box 2 -->
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 3 -->
+					<h5>Connect with Us</h5>
+					<img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-31-facebook.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-32-twitter.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-3-google-plus.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-14-e-mail-envelope.png"
+						alt="" />
+				</div>
+				<!-- end of footer box 3 -->
+				<br />
+				<div class="col-sm-12 col-md-12">© 2016 Book Heaven. All
+					rights reserved.</div>
+			</div>
+		</div>
+		<!-- end of fluid container -->
+	</footer>
+</body>
+
+	</html>
+</jsp:root>

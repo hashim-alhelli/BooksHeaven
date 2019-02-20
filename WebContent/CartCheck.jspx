@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="true" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Your Cart | Books Heaven</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+<!-- -->
+	
+</script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+<!-- -->
+	
+</script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/res/frontend/front.css" />
+	<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/front.css" type="text/css" />
+<script type="text/javascript">  
+ //<![CDATA[
+      
+        var a = 1;          
+            function increase(ID){
+            	var value = parseInt(document.getElementById(ID).value, 10);
+                value = isNaN(value) ? 0 : value;
+                value++;
+                document.getElementById(ID).value = value;
+                
+
+            }    
+            function decrease(ID){
+
+            	var value = parseInt(document.getElementById(ID).value, 10);
+            	
+                value = isNaN(value) ? 0 : value;
+                value--;
+                
+                if(value >=1){
+                document.getElementById(ID).value = value;
+                }
+                
+
+            } 
+            
+            function checkCartValue(ID)
+            {
+            	var ok = true;
+            	var p = parseInt(document.getElementById(ID).value);
+            	if (p < 0 || isNaN(p))
+            	{
+            		alert("Quantity invalid!\n");
+            		//document.getElementById("princi").innerHTML = "<p><font color='red' size='4'>Principle invalid!</font></p>";
+            		ok = false;
+            	}
+            	return ok
+            }
+            
+            
+            function ajaxsubmit(ID,valuebook){
+            	
+            	//alert(ID);
+				//alert(valuebook);
+            	
+            	var xRequest1;
+
+            	var value = parseInt(document.getElementById(ID).value, 10);
+                value = isNaN(value) ? 0 : value;
+            //    value++;
+              //  document.getElementById(ID).value = value;
+                
+            	/* if(string1=="")
+
+            	{
+
+            	document.getElementById("Show_update").innerHTML="";
+
+            	return;
+
+            	}
+ */
+            	
+            	xRequest1 = new XMLHttpRequest();
+ var webpage = window.location.href.split("/") ;
+	xRequest1.open("GET", "/"+webpage[3]+"/Start/Item.jspx?quantity="+value+"&AddToCart="+valuebook, true);
+//	/Start/Item.jspx?quantity=1&AddToCart=b011
+            	//alert("yes xml http");
+            	
+
+            	 
+				//alert("befoe the on ready state dot call");
+				
+				xRequest1.onreadystatechange=function (){
+					
+				
+            	
+
+       //     	alert("im inside the function of readystate");
+            	if((xRequest1.readyState==4) && (xRequest1.status==200))
+
+            	{
+
+            	//alert("success");
+            	window.location.hash = valuebook;
+            	//alert(xRequest1.);
+            	window.location.reload();
+            	}
+
+            	};
+             	xRequest1.send(null);
+   
+
+           }
+            //]]>
+</script>
+
+</head>
+<body>
+
+	
+	<!--  Nav bar starts here -->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			<!-- mobile collapse menu -->
+			<button type="button" data-target="#navbarCollapse"
+				data-toggle="collapse" class="navbar-toggle">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar">
+					<!--  -->
+				</span> <span class="icon-bar">
+					<!--  -->
+				</span> <span class="icon-bar">
+					<!--  -->
+				</span>
+			</button>
+				<a class="navbar-brand"
+					href="${pageContext.request.contextPath}/Start"><img
+					class="img-responsive"
+					src="${pageContext.request.contextPath}/res/imgs/logo.png" alt=""
+					width="120px" /></a>
+
+			
+			<ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+				<!--  whenever we click on the view cart we go to the cart page -->
+				<li style="float:right;"><a style="display: inline;"
+					href="${pageContext.request.contextPath}/Start/CartCheck.jspx?forward=view_cart"><span
+						class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
+							<!--  -->
+					</span> <span class="badge">${cartSize}</span> </a></li>
+				<c:if test="${not empty loggedInAs}">
+				<li ><a style="display: inline;"
+						href="${pageContext.request.contextPath}/Start/Home.jspx?forward=sign_out">(Sign
+							Out)</a></li>
+					<li>Hello, ${loggedInAs}</li>
+					
+				</c:if>
+				<c:if test="${empty loggedInAs }">
+					<li><a style="display: inline;"
+						href="${pageContext.request.contextPath}/Start/Login.jspx?forward=sign_in">Sign
+							in</a></li>
+				</c:if>
+
+				
+			
+			
+			<div class="collapse navbar-collapse vertical-align"
+				id="navbarCollapse">
+				
+				<ul class="nav navbar-nav">
+
+
+					<!-- category navigation -->
+					<li>
+						<!-- Single button -->
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">
+								Genre <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a id="" title="Art and Architecture"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Art">Art
+										And Architecture</a></li>
+
+								<li><a id="" title="History"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=History">History</a></li>
+
+								<li><a id="" title="Computers"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Computers">Computers</a></li>
+
+								<li><a id="" title="Science and Nature"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Science">Science
+										and Nature</a></li>
+
+								<li><a id="" title="Romance"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Romance">Romance</a></li>
+
+								<li><a id="" title="Sports and Fitness"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Sports">Sports
+										and fitness</a></li>
+
+								<li><a id="" title="Food and Drink"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Food">Food
+										and Drink</a></li>
+
+								<li><a id="" title="Business and Finance"
+									href="${pageContext.request.contextPath}/Start/Item.jspx?category=Finance">Business
+										and Finance</a></li>
+							</ul>
+						</div>
+
+
+					</li>
+					
+
+				</ul><!-- /end of category navigation -->
+				<!--  this is the search form and the button with it the placeholder attribute is for prompting user -->
+				<form class="navbar-form navbar-left" role="search" action="">
+					<div class="input-group">
+						<input name="searchstring" size="45" type="text"
+							class="form-control" placeholder="Search..." /> <span
+							class="input-group-btn" id="sizing-addon1"><button
+								name="searchbutton" type="submit" class="btn btn-default btn-md">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button></span>
+					</div>
+
+				</form>
+			</div><!-- end of collapsable menu -->
+			</ul>
+			</div><!--  Nav bar ends here -->
+		</div><!-- end of nav container -->
+	</nav>
+	
+	<!--  Nav bar ends here -->
+
+
+
+	<div class="container">
+		<div class="col-md-12 col-sm-12">
+			<div class="page-header">
+				<h1>Review Your Cart</h1>
+
+				<ol class="breadcrumb">
+					<li><a href="${pageContext.request.contextPath}/Start/categories">Categories</a></li>
+					<li class="text-success">Review Cart</li>
+					<li class="text-muted">Submit Order</li>
+				</ol>
+			</div>
+			
+			
+			<c:if test="${not empty suggested}">
+			<div class="col-md-8">
+				<div class="well">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-4">
+									<h4>ALSO TRY OUR SPECIAL ITEM</h4>
+									<h4>${suggested.name}
+										<small> ${suggested.number}"</small>
+									</h4>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:if>
+			
+			<div class="col-md-8">
+				<form id="UPDATECART"
+					action="${pageContext.request.contextPath}/Start/CartCheck.jspx"
+					method="GET">
+
+					<c:forEach var="s" items="${set_books}">
+						<div class="well">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+
+										<div class="col-md-6">
+
+											<h3 class="text-left">
+												${s.getTitle()} <br /> <small> <a
+													href="${pageContext.request.contextPath}/Start?image=${s.getTitle()}"><IMG
+														alt=""
+														src="${pageContext.request.contextPath}/book_imgs/${s.getImg_name()}" /></a>
+
+
+												</small>
+											</h3>
+											<h3 class="text-left">
+												<br /> <small>Product Number: ${s.getBid()}</small>
+											</h3>
+											<p>Select Quantity</p>
+										</div>
+										<div class="col-md-6">
+
+											<h2>
+												Price:$${s.getPrice()}<br /> <small>Item in Stock!</small>
+											</h2>
+
+
+
+										</div>
+									</div>
+
+									<!--  add to cart buttons -->
+									<form action="" method="GET">
+										<div class="col-md-6">
+											<div class="input-group">
+												<span class="input-group-btn"> <c:set var="ID"
+														value="${ID + 1}" /> <c:set var="ID_CART" value="${ID+1}" />
+													<button onclick="decrease(${ID});" type="button"
+														class="btn btn-danger btn-number" data-type="minus"
+														data-field="quant[2]">
+														<span class="glyphicon glyphicon-minus" />
+													</button>
+
+												</span> <input type="text" id="${ID}"
+													onblur="return checkCartValue(${ID});"
+													name="quantity" class="form-control input-number" value="${selectedBooks.get(s.getBid())}"
+													min="1" max="100" /> <span class="input-group-btn">
+													<button onclick="increase(${ID});" type="button"
+														class="btn btn-success btn-number" data-type="plus"
+														data-field="quant[2]">
+														<span class="glyphicon glyphicon-plus" />
+													</button>
+													
+												
+												</span>
+												
+												
+												
+												
+											</div>
+											<br/>
+											
+										
+										</div>
+										
+										<div class="col-md-6" id= "${{s.getBid()}}">
+
+												<button type="submit" value="${s.getBid()}" name="update"
+												class="btn btn-block btn-success"
+												onclick="ajaxsubmit(${ID},this.value);return false;" >UPDATE</button>
+												
+										<br/>
+											<button type="submit" value="${s.getBid()}" name="removeBook"
+												class="btn btn-block btn-success"
+												onclick="return checkCartValue(${ID});" >Remove</button>
+												
+										</div>
+										
+									</form>
+								</div>
+							</div>
+
+
+						</div>
+					</c:forEach>
+
+				</form>
+			</div>		
+			
+			<div class="col-md-4">
+					<div class="panel panel-default affix">
+					<div class="panel-heading">Review Your Order</div>
+					<div class="panel-body">
+					<p>Total before tax: <f:formatNumber type="currency" >${total_price}</f:formatNumber></p>
+					<p>HST: 13%</p>
+					<p>Shipping: Free</p>
+					
+					</div>
+					
+					<div class="panel-footer">
+					<c:set var="result" value="${total_price * 1.13}"/>
+					<p class="text-left">Total Cost: <f:formatNumber type="currency" >${result}</f:formatNumber></p>
+					<a href="${pageContext.request.contextPath}/Start/categories" class="btn btn-block btn-warning" type="submit" value=""
+										name="">Continue Shopping</a>
+										<p></p>
+					<form action="" method="POST">
+					<button class="btn btn-block btn-success" type="submit" value="1" name="checkout">Checkout</button>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Start of footer -->
+	<footer>
+		<div class="container-fluid">
+			<div class="footer-style">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 1 -->
+					<h5>Our Company</h5>
+					<ul>
+						<li><a id="" title="about us"
+							href="${pageContext.request.contextPath}/Start/aboutus.jspx#about">About
+								Us</a></li>
+						<li><a id="" title="contact us"
+							href="${pageContext.request.contextPath}/Start/aboutus.jspx#contact">Contact
+								Us</a></li>
+					</ul>
+				</div>
+				<!-- end of footer box 1 -->
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 2 -->
+					<h5>Headquarters</h5>
+					<ul>
+						<li>Book Heaven</li>
+						<li>4700 Keele Street</li>
+						<li>Toronto, Ontario, CA M3J 1P3</li>
+					</ul>
+				</div>
+				<!-- end of footer box 2 -->
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<!-- footer box 3 -->
+					<h5>Connect with Us</h5>
+					<img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-31-facebook.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-32-twitter.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-3-google-plus.png"
+						alt="" /> <img style="margin-right: 5px;"
+						src="${pageContext.request.contextPath}/res/imgs/glyphicons-social-14-e-mail-envelope.png"
+						alt="" />
+				</div>
+				<!-- end of footer box 3 -->
+				<br />
+				<div class="col-sm-12 col-md-12">© 2016 Book Heaven. All
+					rights reserved.</div>
+			</div>
+		</div>
+		<!-- end of fluid container -->
+	</footer>
+</body>
+	</html>
+</jsp:root>

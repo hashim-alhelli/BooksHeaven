@@ -1,0 +1,1 @@
+Use the server.xml file included and replace the local servers server.xml file with this one
